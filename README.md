@@ -1,14 +1,45 @@
-# Getting Started with Create React App
+# LVIAH
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+LVIAH is a social network for sharing funny images and videos.
+Let's makes good vibes.
 
-## Available Scripts
+## Installation
 
-In the project directory, you can run:
+① Clone project
 
+② Run `npm install` or `yarn install`
+
+③ Start project `npm start` or `yarn start`
+### Docker
+
+#### Use Dockerfile
+
+① `cd` to project directory, build docker image `docker build -t $IMAGE_NAME .`
+
+② Run docker container
+
+```
+    docker run \
+    -it \
+    --rm \
+    -v ${PWD}:/app \
+    -v /app/node_modules \
+    -p 3001:3000 \
+    -e CHOKIDAR_USEPOLLING=true \
+    $IMAGE_NAME
+```
+
+#### User Dockercompose
+
+① Simply just run command `docker-compose up -d --build`
+
+② Stop docker container `docker-compose down`
+
+③ Run docker container from second time `docker-compose up -d`
 ### `yarn start`
 
 Runs the app in the development mode.\
+
 Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
 
 The page will reload if you make edits.\
