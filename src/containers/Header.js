@@ -1,61 +1,78 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
+import { withRouter } from "react-router";
 
-function ProfilePopup() {
+function Dropdown(props) {
   return (
-    <div className="origin-top-right absolute right-0 mt-2 w-48 rounded-md shadow-lg py-1 bg-white ring-1 ring-black ring-opacity-5" role="menu" aria-orientation="vertical" aria-labelledby="user-menu">
-      <a href="#" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100" role="menuitem">Your Profile</a>
+    <div className="relative inline-block text-left">
+      <div onMouseEnter={() => props.setIsOpen(!props.isOpen)} onMouseLeave={() => props.setIsOpen(!props.isOpen)} >
+        <button type="button" 
+          className="inline-flex justify-center w-full rounded-md px-4 py-2 bg-white text-sm font-medium text-gray-700 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-100 focus:ring-indigo-500" id="options-menu" aria-expanded="true" aria-haspopup="true">
+          More 
+          <svg className="-mr-1 ml-2 h-5 w-5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+            <path fillRule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clipRule="evenodd" />
+          </svg>
+        </button>
+      </div>
 
-      <a href="#" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100" role="menuitem">Settings</a>
+      {
+        props.isOpen && (
+          <div className="origin-top-right absolute right-0 mt-2 w-56 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 focus:outline-none" role="menu" aria-orientation="vertical" aria-labelledby="options-menu">
+            <div className="py-1" role="none">
+              <a href="#" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-gray-900" role="menuitem">Account settings</a>
+              <a href="#" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-gray-900" role="menuitem">Support</a>
+              <a href="#" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-gray-900" role="menuitem">License</a>
+              <button type="submit" className="block w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-gray-900" role="menuitem">
+                Sign out
+              </button>
+            </div>
+          </div>
+        )
+      }
 
-      <a href="#" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100" role="menuitem">Sign out</a>
     </div>
   )
 }
 
-function Header() {
-  const [ isOpen, setIsOpen ] = useState(false);
+function Header(props) {
+  const [ isDropdownOpen, setIsDropdownOpen ] = useState(false);
 
   return (
-    <nav className="bg-gray-800">
+    <nav className="bg-white shadow">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-16">
           <div className="flex items-center">
-            <div className="flex-shrink-0">
-              <img className="h-8 w-8" src="https://tailwindui.com/img/logos/workflow-mark-indigo-500.svg" alt="Workflow" />
+            <div className="flex">
+              <img className="h-8 w-8 my-2" src="https://tailwindui.com/img/logos/workflow-mark-indigo-500.svg" alt="Workflow" />
+              <a href="#" className="text-black px-2 py-2 rounded-md text-2xl font-semibold">lviah</a>
             </div>
             <div className="hidden md:block">
               <div className="ml-10 flex items-baseline space-x-4">
-                <a href="#" className="bg-gray-900 text-white px-3 py-2 rounded-md text-sm font-medium">LVIAH</a>
 
-                <a href="#" className="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium"><Link to="/login">Login</Link></a>
+                <Link to ="/login" className="text-black hover:bg-gray-100 px-3 py-2 rounded-md text-sm font-medium">Home</Link>
 
-                <a href="#" className="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium">Projects</a>
+                <a href="#" className="text-black hover:bg-gray-100 px-3 py-2 rounded-md text-sm font-medium">Top</a>
 
-                <a href="#" className="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium">Calendar</a>
+                <a href="#" className="text-black hover:bg-gray-100 px-3 py-2 rounded-md text-sm font-medium">Trending</a>
 
-                <a href="#" className="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium">Reports</a>
+                <a href="#" className="text-black hover:bg-gray-100 px-3 py-2 rounded-md text-sm font-medium">Blog</a>
+
+                <Dropdown isOpen={isDropdownOpen} setIsOpen={setIsDropdownOpen}/>
               </div>
             </div>
           </div>
           <div className="hidden md:block">
             <div className="ml-4 flex items-center md:ml-6">
-              <button className="bg-gray-800 p-1 rounded-full text-gray-400 hover:text-white focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-white">
-                <span className="sr-only">View notifications</span>
-                <svg className="h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9" />
-                </svg>
+              <button 
+                onClick={() => props.history.push('/login')}
+                className="bg-purple-200 hover:bg-blue-100 text-purple-600 font-semibold text-sm py-2 px-4 mx-1 rounded-md"
+              >
+                Login
               </button>
 
-              <div className="ml-3 relative">
-                <div>
-                  <button className="max-w-xs bg-gray-800 rounded-full flex items-center text-sm focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-white" id="user-menu" aria-haspopup="true" onClick={() => setIsOpen(!isOpen)}>
-                    <span className="sr-only">Open user menu</span>
-                    <img className="h-8 w-8 rounded-full" src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80" alt="" />
-                  </button>
-                  { isOpen && <ProfilePopup /> }
-                </div>
-              </div>
+              <button className="bg-purple-600 hover:bg-blue-700 text-white font-semibold text-sm py-2 px-4 mx-1 rounded-md">
+                Sign up
+              </button>
             </div>
           </div>
           <div className="-mr-2 flex md:hidden">
@@ -113,4 +130,4 @@ function Header() {
   );
 }
 
-export default Header;
+export default withRouter(Header);

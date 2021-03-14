@@ -4,14 +4,16 @@ import React from 'react';
 import Header from './Header';
 import Sidebar from './Sidebar';
 import Content from './Content';
+import Leaderboard from '../components/Leaderboard';
 
 function Layout() {
   return (
     <>
       <Header />
-      <div className="bg-gray-50 grid grid-cols-4">
+      <div className="bg-gray-100 grid grid-cols-4">
         <Sidebar />
         <Content />
+        <Leaderboard />
       </div>
     </>
   );
