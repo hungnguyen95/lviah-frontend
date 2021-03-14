@@ -55,6 +55,8 @@ function Leaderboard() {
         <Person isUpvote/>
         <Person />
         <Person />
+        <div style={{backgroundColor: 'gray', height: 1, marginTop: 10, marginBottom: 10}}/>
+        <Person isUpvote/>
       </div>
     </div>
   );
